@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import LoginScreen from './LoginScreen';
-import ScanScreen from './ScanScreen';
-
-const Tab = createBottomTabNavigator()
+import React from 'react'
+import {View, Image} from 'react-native';
+import {styles} from '../styles';
 
 class HomeScreen extends React.Component {
     render() {
         return (
-            <Tab.Navigator>
-                <Tab.Screen name="HomeLogin" component={LoginScreen} />
-                <Tab.Screen name="HomeScan" component={ScanScreen} />
-            </Tab.Navigator>
+            <View style={styles.container}>
+                <Image source={require('../assets/logo.png')} />
+            </View>
         );
     }
 }
