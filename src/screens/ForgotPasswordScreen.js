@@ -1,7 +1,9 @@
 import React from 'react'
-import {View} from 'react-native'
-import {Button, Text, TextInput, Title} from 'react-native-paper';
+import {Pressable, View} from 'react-native';
+import {ActivityIndicator, Button, Text, TextInput, Title} from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import {styles} from '../styles';
+import {sendPasswordResetLink} from '../services/api';
 
 class ForgotPasswordScreen extends React.Component {
     constructor(props) {
@@ -13,15 +15,41 @@ class ForgotPasswordScreen extends React.Component {
 
     handleChange = (value) => {
         this.setState({
-            email: value
+            email: value,
+            isLoading: false
         })
     }
 
     handlePress = () =>  {
-        this.props.navigation.navigate('LinkSent')
+        this.setState({
+            isLoading: true
+        })
+        sendPasswordResetLink(this.state.email)
+            .then(data => {
+                if (data.data) {
+                    this.props.navigation.navigate('LinkSent')
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: data.Message,
+                    })
+                }
+                this.setState({
+                    isLoading: false
+                })
+            })
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            )
+        }
         return (
             <View style={styles.container}>
                 <View style={{width: '80%'}}>
@@ -42,6 +70,14 @@ class ForgotPasswordScreen extends React.Component {
                     >
                         Send Password Reset Link
                     </Button>
+                    <Pressable
+                        style={styles.input}
+                        onPress={() => this.props.navigation.navigate('HomeLogin')}
+                    >
+                        {({pressed}) => (
+                            <Text style={{textAlign: 'right', color: pressed ? 'white' : 'black'}}>Login</Text>
+                        )}
+                    </Pressable>
                 </View>
             </View>
         );

@@ -1,50 +1,57 @@
 import React from "react"
 import {View, Pressable, Image} from 'react-native'
-import {Button, Subheading, Text, TextInput, Title} from 'react-native-paper';
+import {ActivityIndicator, Button, Subheading, Text, TextInput, Title} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 import {styles} from '../styles';
+import {postLogin} from '../services/api';
 
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: '', password: ''}
-    }
-
-    postLogin = async (username, password) => {
-        try {
-            let response = await fetch('http://192.168.1.38:8080/api/Auth/Login', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            })
-            let json = await response.json();
-            return json.data;
-        } catch (error) {
-            console.error(error);
+        this.state = {
+            username: '',
+            password: '',
+            isLoading: false
         }
     }
 
     handleLogin = () => {
-        this.postLogin(this.state.username, this.state.password)
-            .then(token => {
-                if (token) {
-                    AsyncStorage.setItem('authToken', token);
+        this.setState({
+            isLoading: true
+        })
+        postLogin(this.state.username, this.state.password)
+            .then(data => {
+                if (data.data) {
+                    AsyncStorage.setItem('authToken', data.data);
                     this.props.navigation.navigate('HomeNav')
                     this.setState({
                         username: '',
                         password: ''
                     })
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: data.Message,
+                    })
                 }
+                this.setState({
+                    isLoading: false
+                })
             });
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            )
+        }
+
         return (
             <View style={styles.container}>
                 <View style={{width: '80%'}}>

@@ -16,6 +16,7 @@ import {
     Provider as PaperProvider,
     DefaultTheme as PaperDefaultTheme
 } from 'react-native-paper'
+import Toast from 'react-native-toast-message';
 import merge from 'deepmerge'
 
 import LoginNavigator from './screens/LoginNavigator';
@@ -37,6 +38,7 @@ const App: () => React$Node = () => {
                     <Stack.Screen name="HomeNav" component={HomeNavigator} />
                 </Stack.Navigator>
             </NavigationContainer>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </PaperProvider>
     );
 };
