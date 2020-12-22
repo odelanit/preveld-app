@@ -1,16 +1,24 @@
-import { CHANGE_CLIENT } from "../actionTypes";
+import {CHANGE_CLIENT_DATA, CHANGE_CLIENT_NAME} from '../actionTypes';
 
 const initialState = {
-    client: {}
+    records: {},
+    clientName: ''
 };
 
-export default function(state = initialState, action) {
+export default (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_CLIENT: {
-            const client = action.payload;
+        case CHANGE_CLIENT_DATA: {
+            const records = action.payload;
             return {
                 ...state,
-                client: client,
+                records: records,
+            };
+        }
+        case CHANGE_CLIENT_NAME: {
+            const clientName = action.payload;
+            return {
+                ...state,
+                clientName: clientName,
             };
         }
         default:

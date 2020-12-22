@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     DrawerContentScrollView,
     DrawerItem,
@@ -11,15 +11,15 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import {connect} from 'react-redux';
 
 import {styles} from '../styles';
-import {getClients} from '../services/api';
-import {changeClient} from '../redux/actions';
+import {getClientRecords, getClients} from '../services/api';
+import {changeClientData, changeClientName} from '../redux/actions';
 
 class HomeDrawerContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clients: []
-        }
+            clients: [],
+        };
     }
 
     componentDidMount() {
@@ -27,30 +27,36 @@ class HomeDrawerContent extends React.Component {
             .then(res => {
                 if (res.data) {
                     this.setState({
-                        clients: res.data
-                    })
+                        clients: res.data,
+                    });
                 }
-            })
+            });
     }
 
     handleLogout = () => {
         AsyncStorage.removeItem('accessToken');
-        this.props.navigation.navigate('HomeLogin')
-    }
+        this.props.navigation.navigate('HomeLogin');
+    };
 
     onItemClicked = (client) => {
-        this.props.changeClient(client);
-        this.props.navigation.navigate('ClientScreen')
-    }
+        getClientRecords(client.Name)
+            .then(res => {
+                if (res.data) {
+                    this.props.changeClientName(client.Name)
+                    this.props.changeClientData(res.data);
+                }
+            });
+        this.props.navigation.navigate('ClientScreen');
+    };
 
     onHomeClicked = () => {
-        let homeFocused = this.props.state.index == 0
+        let homeFocused = this.props.state.index == 0;
         if (homeFocused) {
             this.props.navigation.closeDrawer();
         } else {
-            this.props.navigation.navigate('HomeScreen')
+            this.props.navigation.navigate('HomeScreen');
         }
-    }
+    };
 
     render() {
 
@@ -58,24 +64,28 @@ class HomeDrawerContent extends React.Component {
             <DrawerContentScrollView {...this.props}>
                 <DrawerItem
                     label="Home"
-                    onPress={() => {this.onHomeClicked()}}
+                    onPress={() => {
+                        this.onHomeClicked();
+                    }}
                     icon={({focused, size, color}) => (
-                        <Ionicons name="md-home" size={size} color={color} />
+                        <Ionicons name="md-home" size={size} color={color}/>
                     )}
                 />
                 <Drawer.Section title="View Clients">
                     {
-                        this.state.clients.map((client,index)=>{
+                        this.state.clients.map((client, index) => {
                             return (
                                 <Drawer.Item
                                     key={index}
                                     icon={({size, color}) => (
-                                        <Octicons name="primitive-dot" size={size} color={color} />
+                                        <Octicons name="primitive-dot" size={size} color={color}/>
                                     )}
                                     label={client.Name}
-                                    onPress={() => {this.onItemClicked(client)}}
+                                    onPress={() => {
+                                        this.onItemClicked(client);
+                                    }}
                                 />
-                            )
+                            );
                         })
                     }
                 </Drawer.Section>
@@ -85,8 +95,8 @@ class HomeDrawerContent extends React.Component {
                     </Button>
                 </View>
             </DrawerContentScrollView>
-        )
+        );
     }
 }
 
-export default connect(null, {changeClient})(HomeDrawerContent)
+export default connect(null, {changeClientData, changeClientName})(HomeDrawerContent);

@@ -57,3 +57,21 @@ export const getClients = async () => {
         console.error(error)
     }
 }
+
+export const getClientRecords = async (name) => {
+    try {
+        let accessToken = await AsyncStorage.getItem('accessToken');
+        let response = await fetch(`http://192.168.1.38:8080/api/Client/${name}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return await response.json()
+    } catch (error) {
+        console.error(error)
+    }
+}
