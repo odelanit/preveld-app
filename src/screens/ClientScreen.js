@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {styles} from '../styles';
 import {Text} from 'react-native-paper';
 import {connect} from 'react-redux';
-// import {EventRegister} from 'react-native-event-listeners';
 
 class ClientScreen extends React.Component {
     constructor(props) {

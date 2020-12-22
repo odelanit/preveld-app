@@ -9,7 +9,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {connect} from 'react-redux';
-import {EventRegister} from 'react-native-event-listeners'
 
 import {styles} from '../styles';
 import {getClients} from '../services/api';
