@@ -22,23 +22,30 @@ class LoginScreen extends React.Component {
         })
         postLogin(this.state.username, this.state.password)
             .then(data => {
-                if (data.data) {
-                    AsyncStorage.setItem('accessToken', data.data);
-                    this.props.navigation.navigate('HomeNav')
-                    this.setState({
-                        username: '',
-                        password: ''
-                    })
+                if (data) {
+                    if (data.data) {
+                        AsyncStorage.setItem('accessToken', data.data);
+                        this.props.navigation.navigate('HomeNav')
+                        this.setState({
+                            username: '',
+                            password: ''
+                        })
+                    } else {
+                        Toast.show({
+                            type: 'error',
+                            text1: data.Message,
+                        })
+                    }
                 } else {
                     Toast.show({
                         type: 'error',
-                        text1: data.Message,
+                        text1: 'Network Request Error',
                     })
                 }
                 this.setState({
                     isLoading: false
                 })
-            });
+            })
     }
 
     render() {

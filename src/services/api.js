@@ -1,24 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {acc} from 'react-native-reanimated';
 
-export const postLogin = async (username, password) => {
-    try {
-        let response = await fetch('http://192.168.1.38:8080/api/Auth/Login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
+export const postLogin = (username, password) => {
+    return fetch('http://192.168.1.38:8080/api/Auth/Login', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
         })
-
-        return await response.json()
-    } catch (error) {
-        console.error(error);
-    }
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw Error(res.statusText)
+            }
+        })
+        .catch(error => console.log(error))
 }
 
 export const sendPasswordResetLink = async (email) => {

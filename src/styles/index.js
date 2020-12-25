@@ -27,5 +27,18 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 80
+    },
+    tableBorder: {
+        borderStyle: 'solid',
+        borderWidth: 1
+    },
+    tableWrapper: {flexDirection: 'row'},
+    tableTitle: {flex: 1, backgroundColor: '#f6f8fa'},
+    tableRow: {height: 28},
+    tableRow2: {height: 40},
+    tableRow3: {height: 50},
+    tableText: {textAlign: 'center'},
+    table: {
+        marginBottom: 10
     }
 });
