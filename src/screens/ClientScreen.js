@@ -12,13 +12,13 @@ class ClientScreen extends React.Component {
         super(props);
     }
 
-    onValveItemClicked = (valve) => {
-        this.props.changeValveDetail(valve);
+    onValveItemClicked = (valve, index) => {
+        this.props.changeValveDetail(valve, index);
         this.props.navigation.navigate('ValveDetailScreen');
     };
 
-    onWrapItemClicked = (wrap) => {
-        this.props.changeWrapDetail(wrap);
+    onWrapItemClicked = (wrap, index) => {
+        this.props.changeWrapDetail(wrap, index);
         this.props.navigation.navigate('WrapDetailScreen');
     };
 
@@ -70,7 +70,7 @@ class ClientScreen extends React.Component {
                                                 key={index}
                                                 title={valve.Unique_ID}
                                                 description={valve.Valve_description}
-                                                onPress={() => this.onValveItemClicked(valve)}
+                                                onPress={() => this.onValveItemClicked(valve, index)}
                                             />
                                         );
                                     })
@@ -89,7 +89,7 @@ class ClientScreen extends React.Component {
                                                 key={index}
                                                 title={wrap.Unique_ID}
                                                 description={wrap.Wrap_No}
-                                                onPress={() => this.onWrapItemClicked(wrap)}
+                                                onPress={() => this.onWrapItemClicked(wrap, index)}
                                             />
                                         );
                                     })

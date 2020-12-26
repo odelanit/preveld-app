@@ -5,12 +5,35 @@ import {Col, Rows, Table, TableWrapper} from 'react-native-table-component';
 
 import {styles} from '../styles';
 import {Button, IconButton, Title} from 'react-native-paper';
+import {changeValveDetail} from '../redux/actions';
 
 class ValveDetailScreen extends React.Component {
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
+    goNextRecord = () => {
+        const currentIndex = this.props.valve.index
+        if (currentIndex + 1 < this.props.Valves.length) {
+            this.props.changeValveDetail(this.props.Valves[currentIndex + 1], currentIndex + 1);
+        }
+    };
+
+    goPrevRecord = () => {
+        const currentIndex = this.props.valve.index
+        if (currentIndex > 0) {
+            this.props.changeValveDetail(this.props.Valves[currentIndex - 1], currentIndex - 1);
+        }
+    };
+
+    goTrend = () => {
+        console.log('pressed');
+    };
+
+    render() {
+        const valve = this.props.valve.valve
+
+        const tableData = {
             tableTitle1: [
                 'Description',
                 'Location',
@@ -26,11 +49,11 @@ class ValveDetailScreen extends React.Component {
                 28,
             ],
             tableData1: [
-                [props.valve.Valve_description],
-                [props.valve.Location],
-                [props.valve.Client],
-                [props.valve.Date_of_Inspection],
-                [props.valve.COR_No],
+                [valve.Valve_description],
+                [valve.Location],
+                [valve.Client],
+                [valve.Date_of_Inspection],
+                [valve.COR_No],
             ],
             tableTitle2: [
                 'Size',
@@ -38,9 +61,9 @@ class ValveDetailScreen extends React.Component {
                 'Pup',
             ],
             tableData2: [
-                [props.valve.Size_Inch],
-                [props.valve.Location],
-                [props.valve.Pressure_UP],
+                [valve.Size_Inch],
+                [valve.Location],
+                [valve.Pressure_UP],
             ],
             tableTitle3: [
                 'Type',
@@ -48,15 +71,15 @@ class ValveDetailScreen extends React.Component {
                 'Pdown',
             ],
             tableData3: [
-                [props.valve.Type],
-                [props.valve.PID_No],
-                [props.valve.Pressure_Down],
+                [valve.Type],
+                [valve.PID_No],
+                [valve.Pressure_Down],
             ],
             tableTitle4: [
                 'Leak Condition',
             ],
             tableData4: [
-                [props.valve.LeaK_Condition],
+                [valve.LeaK_Condition],
             ],
             tableTitle5: [
                 'ASL (dB)',
@@ -69,9 +92,9 @@ class ValveDetailScreen extends React.Component {
                 40,
             ],
             tableData5: [
-                [props.valve.ASL_dB],
-                [props.valve.Leak_Rate_kgmin],
-                [props.valve.Tolerable_Leak_Threshold_TLT],
+                [valve.ASL_dB],
+                [valve.Leak_Rate_kgmin],
+                [valve.Tolerable_Leak_Threshold_TLT],
             ],
             tableTitle6: [
                 'Leak Classification',
@@ -79,36 +102,20 @@ class ValveDetailScreen extends React.Component {
                 'Warning TLT (kg/s)',
             ],
             tableData6: [
-                [props.valve.Leak_Classification],
-                [props.valve.Leak_Color_Code],
-                [props.valve.Warning_Limit_TLT],
+                [valve.Leak_Classification],
+                [valve.Leak_Color_Code],
+                [valve.Warning_Limit_TLT],
             ],
             tableTitle7: [
                 'Comment',
                 'Recommended Action',
             ],
             tableData7: [
-                [props.valve.Comment],
-                [props.valve.Recommended_Action],
+                [valve.Comment],
+                [valve.Recommended_Action],
             ],
         };
 
-    }
-
-    goNextRecord = () => {
-        console.log('pressed');
-    };
-
-    goPrevRecord = () => {
-        console.log('pressed');
-    };
-
-    goTrend = () => {
-        console.log('pressed');
-    };
-
-    render() {
-        const state = this.state;
         return (
             <View style={[styles.container, {flexDirection: 'column'}]}>
                 <View style={{width: '100%', flex: 10, padding: 16}}>
@@ -116,55 +123,55 @@ class ValveDetailScreen extends React.Component {
                         {
                             this.props.valve && (
                                 <>
-                                    <Title style={styles.title}>{this.props.valve.Unique_ID}</Title>
+                                    <Title style={styles.title}>{this.props.valve.valve.Unique_ID}</Title>
                                     <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                                         <TableWrapper style={styles.tableWrapper}>
-                                            <Col data={state.tableTitle1} style={styles.tableTitle}
-                                                 heightArr={this.state.height1}
+                                            <Col data={tableData.tableTitle1} style={styles.tableTitle}
+                                                 heightArr={tableData.height1}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData1} flexArr={[1]} style={styles.tableRow}
+                                            <Rows data={tableData.tableData1} flexArr={[1]} style={styles.tableRow}
                                                   textStyle={styles.tableText}/>
                                         </TableWrapper>
                                     </Table>
                                     <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                                         <TableWrapper style={styles.tableWrapper}>
-                                            <Col data={state.tableTitle2} style={styles.tableTitle}
+                                            <Col data={tableData.tableTitle2} style={styles.tableTitle}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData2} flexArr={[1]}
+                                            <Rows data={tableData.tableData2} flexArr={[1]}
                                                   textStyle={styles.tableText} style={styles.tableRow}/>
-                                            <Col data={state.tableTitle3} style={styles.tableTitle}
+                                            <Col data={tableData.tableTitle3} style={styles.tableTitle}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData3} flexArr={[1]} style={styles.tableRow}
+                                            <Rows data={tableData.tableData3} flexArr={[1]} style={styles.tableRow}
                                                   textStyle={styles.tableText}/>
                                         </TableWrapper>
                                     </Table>
                                     <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                                         <TableWrapper style={styles.tableWrapper}>
-                                            <Col data={state.tableTitle4} style={styles.tableTitle}
+                                            <Col data={tableData.tableTitle4} style={styles.tableTitle}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData4} flexArr={[1]}
+                                            <Rows data={tableData.tableData4} flexArr={[1]}
                                                   textStyle={styles.tableText} style={styles.tableRow}/>
                                         </TableWrapper>
                                     </Table>
                                     <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                                         <TableWrapper style={styles.tableWrapper}>
-                                            <Col data={state.tableTitle5} style={styles.tableTitle}
-                                                 heightArr={this.state.height5}
+                                            <Col data={tableData.tableTitle5} style={styles.tableTitle}
+                                                 heightArr={tableData.height5}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData5} flexArr={[1]}
+                                            <Rows data={tableData.tableData5} flexArr={[1]}
                                                   textStyle={styles.tableText} style={styles.tableRow2}/>
-                                            <Col data={state.tableTitle6} style={styles.tableTitle}
-                                                 heightArr={this.state.height5}
+                                            <Col data={tableData.tableTitle6} style={styles.tableTitle}
+                                                 heightArr={tableData.height5}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData6} flexArr={[1]}
+                                            <Rows data={tableData.tableData6} flexArr={[1]}
                                                   textStyle={styles.tableText} style={styles.tableRow2}/>
                                         </TableWrapper>
                                     </Table>
                                     <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                                         <TableWrapper style={styles.tableWrapper}>
-                                            <Col data={state.tableTitle7} style={styles.tableTitle}
+                                            <Col data={tableData.tableTitle7} style={styles.tableTitle}
                                                  textStyle={styles.tableText}/>
-                                            <Rows data={state.tableData7} flexArr={[1]}
+                                            <Rows data={tableData.tableData7} flexArr={[1]}
                                                   textStyle={styles.tableText} style={styles.tableRow2}/>
                                         </TableWrapper>
                                     </Table>
@@ -190,7 +197,10 @@ class ValveDetailScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return state.valve;
+    return {
+        valve: state.valve,
+        Valves: state.client.records.Valves
+    };
 };
 
-export default connect(mapStateToProps)(ValveDetailScreen);
+export default connect(mapStateToProps, {changeValveDetail})(ValveDetailScreen);

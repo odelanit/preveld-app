@@ -17,14 +17,20 @@ export const changeClientName = clientName => ({
     payload: clientName
 })
 
-export const changeWrapDetail = wrap => ({
+export const changeWrapDetail = (wrap, index) => ({
     type: CHANGE_WRAP_DETAIL,
-    payload: wrap
+    payload: {
+        wrap: wrap,
+        index: index
+    }
 })
 
-export const changeValveDetail = valve => ({
+export const changeValveDetail = (valve, index) => ({
     type: CHANGE_VALVE_DETAIL,
-    payload: valve
+    payload: {
+        valve: valve,
+        index: index
+    }
 })
 
 export const changeWrapTrend = trendData => ({

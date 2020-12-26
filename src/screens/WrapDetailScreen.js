@@ -4,12 +4,35 @@ import {connect} from 'react-redux';
 import {Button, IconButton, Text, Title} from 'react-native-paper';
 import {Col, Rows, Table, TableWrapper} from 'react-native-table-component';
 import {styles} from '../styles';
+import {changeWrapDetail} from '../redux/actions';
 
 class WrapDetailScreen extends React.Component {
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
+    goNextRecord = () => {
+        const currentIndex = this.props.wrap.index
+        if (currentIndex + 1 < this.props.Wraps.length) {
+            this.props.changeWrapDetail(this.props.Wraps[currentIndex + 1], currentIndex + 1);
+        }
+    }
+
+    goPrevRecord = () => {
+        const currentIndex = this.props.wrap.index
+        if (currentIndex > 0) {
+            this.props.changeWrapDetail(this.props.Wraps[currentIndex - 1], currentIndex - 1);
+        }
+    }
+
+    goTrend = () => {
+        console.log('pressed')
+    }
+
+    render() {
+        const wrap = this.props.wrap.wrap
+
+        const tableData = {
             tableTitle1: [
                 'Location',
                 'Client',
@@ -17,10 +40,10 @@ class WrapDetailScreen extends React.Component {
                 'COR No.'
             ],
             tableData1: [
-                [props.wrap.Location],
-                [props.wrap.Client],
-                [props.wrap.Date_of_last_inspection],
-                [props.wrap.COR_No]
+                [wrap.Location],
+                [wrap.Client],
+                [wrap.Date_of_last_inspection],
+                [wrap.COR_No]
             ],
             height1: [
                 28,
@@ -34,65 +57,50 @@ class WrapDetailScreen extends React.Component {
                 'Status'
             ],
             tableData2: [
-                [props.wrap.Line_No],
-                [props.wrap.Size],
-                [props.wrap.Status],
+                [wrap.Line_No],
+                [wrap.Size],
+                [wrap.Status],
             ],
             tableTitle3: [
                 'Preliminary Findings',
                 'Final Findings After Further Analysis'
             ],
             tableData3: [
-                [props.wrap._Priliminary_findings_on_Site],
-                [props.wrap.Final_Findings]
+                [wrap._Priliminary_findings_on_Site],
+                [wrap.Final_Findings]
             ],
             height3: [
                 50,
                 50,
             ],
         }
-    }
 
-    goNextRecord = () => {
-        console.log('pressed')
-    }
-
-    goPrevRecord = () => {
-        console.log('pressed')
-    }
-
-    goTrend = () => {
-        console.log('pressed')
-    }
-
-    render() {
-        const state = this.state;
         return (
             <View style={[styles.container, {flexDirection: 'column'}]}>
                 <View style={{width: '100%', flex: 10, padding: 16}}>
                     <ScrollView style={{width: '100%'}}>
-                        <Title style={styles.title}>{this.props.wrap.Unique_ID}</Title>
+                        <Title style={styles.title}>{wrap.Unique_ID}</Title>
                         <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                             <TableWrapper style={styles.tableWrapper}>
-                                <Col data={state.tableTitle1} style={styles.tableTitle} heightArr={this.state.height1}
+                                <Col data={tableData.tableTitle1} style={styles.tableTitle} heightArr={tableData.height1}
                                      textStyle={styles.tableText} />
-                                <Rows data={state.tableData1} flexArr={[1]} style={styles.tableRow}
+                                <Rows data={tableData.tableData1} flexArr={[1]} style={styles.tableRow}
                                       textStyle={styles.tableText} />
                             </TableWrapper>
                         </Table>
                         <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                             <TableWrapper style={styles.tableWrapper}>
-                                <Col data={state.tableTitle2} style={styles.tableTitle} heightArr={this.state.height1}
+                                <Col data={tableData.tableTitle2} style={styles.tableTitle} heightArr={tableData.height1}
                                      textStyle={styles.tableText} />
-                                <Rows data={state.tableData2} flexArr={[1]} style={styles.tableRow}
+                                <Rows data={tableData.tableData2} flexArr={[1]} style={styles.tableRow}
                                       textStyle={styles.tableText} />
                             </TableWrapper>
                         </Table>
                         <Table style={styles.table} borderStyle={{borderWidth: 1}}>
                             <TableWrapper style={styles.tableWrapper}>
-                                <Col data={state.tableTitle3} style={styles.tableTitle} heightArr={this.state.height3}
+                                <Col data={tableData.tableTitle3} style={styles.tableTitle} heightArr={tableData.height3}
                                      textStyle={styles.tableText} />
-                                <Rows data={state.tableData3} flexArr={[1]} style={styles.tableRow3}
+                                <Rows data={tableData.tableData3} flexArr={[1]} style={styles.tableRow3}
                                       textStyle={styles.tableText} />
                             </TableWrapper>
                         </Table>
@@ -115,7 +123,10 @@ class WrapDetailScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return state.wrap;
+    return {
+        wrap: state.wrap,
+        Wraps: state.client.records.Wraps
+    };
 };
 
-export default connect(mapStateToProps)(WrapDetailScreen);
+export default connect(mapStateToProps, {changeWrapDetail})(WrapDetailScreen);
