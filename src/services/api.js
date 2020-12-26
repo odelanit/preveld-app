@@ -76,3 +76,43 @@ export const getClientRecords = async (name) => {
         console.error(error)
     }
 }
+
+export const getWrapTrend = async (name) => {
+    let accessToken = await AsyncStorage.getItem('accessToken');
+    return fetch(`http://192.168.1.38:8080/api/Wrap/Trend/${name}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw Error(res.statusText)
+            }
+        })
+        .catch(error => console.log(error))
+}
+
+export const getValveTrend = async (name) => {
+    let accessToken = await AsyncStorage.getItem('accessToken');
+    return fetch(`http://192.168.1.38:8080/api/Valve/Trend/${name}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw Error(res.statusText)
+            }
+        })
+        .catch(error => console.log(error))
+}

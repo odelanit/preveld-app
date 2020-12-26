@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 import {View, ScrollView} from 'react-native';
 import {styles} from '../styles';
-import {Subheading, Text, Title, List, Button} from 'react-native-paper';
+import {Title, List, Button} from 'react-native-paper';
 import {connect} from 'react-redux';
-import {changeValveDetail, changeWrapDetail} from '../redux/actions';
+import {changeValveDetail, changeValveTrend, changeWrapDetail, changeWrapTrend} from '../redux/actions';
+import {getValveTrend, getWrapTrend} from '../services/api';
+import Toast from 'react-native-toast-message';
 
 class ClientScreen extends React.Component {
     constructor(props) {
@@ -11,19 +13,49 @@ class ClientScreen extends React.Component {
     }
 
     onValveItemClicked = (valve) => {
-        this.props.changeValveDetail(valve)
-        this.props.navigation.navigate('ValveDetailScreen')
-    }
+        this.props.changeValveDetail(valve);
+        this.props.navigation.navigate('ValveDetailScreen');
+    };
 
     onWrapItemClicked = (wrap) => {
-        this.props.changeWrapDetail(wrap)
+        this.props.changeWrapDetail(wrap);
         this.props.navigation.navigate('WrapDetailScreen');
-    }
+    };
+
+    viewValveTrend = () => {
+        getValveTrend(this.props.clientName)
+            .then(res => {
+                if (res.data) {
+                    this.props.changeValveTrend(res.data)
+                    this.props.navigation.navigate('ValveTrendScreen');
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: res.Message,
+                    })
+                }
+            })
+    };
+
+    viewWrapTrend = () => {
+        getWrapTrend(this.props.clientName)
+            .then(res => {
+                if (res.data) {
+                    this.props.changeWrapTrend(res.data)
+                    this.props.navigation.navigate('WrapTrendScreen');
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: res.Message
+                    })
+                }
+            })
+    };
 
     render() {
         return (
-            <View style={styles.container}>
-                <ScrollView style={{width: '100%'}}>
+            <View style={[styles.container, {flexDirection: 'column'}]}>
+                <ScrollView style={{width: '100%', height: '75%'}}>
                     <Title style={styles.title}>{this.props.clientName}</Title>
                     <View style={{flex: 1, flexDirection: 'row', margin: 10}}>
                         <View style={{width: '50%'}}>
@@ -40,7 +72,7 @@ class ClientScreen extends React.Component {
                                                 description={valve.Valve_description}
                                                 onPress={() => this.onValveItemClicked(valve)}
                                             />
-                                        )
+                                        );
                                     })
                                 }
                             </List.Section>
@@ -59,21 +91,49 @@ class ClientScreen extends React.Component {
                                                 description={wrap.Wrap_No}
                                                 onPress={() => this.onWrapItemClicked(wrap)}
                                             />
-                                        )
+                                        );
                                     })
                                 }
                             </List.Section>
                         </View>
                     </View>
                 </ScrollView>
-                <Button onPress={() => this.props.navigation.navigate('ScanScreen')} style={{width: '100%', borderRadius: 0}} mode="contained">QR Scan</Button>
+                <View style={{flex: 1, flexDirection: 'row', height: 'auto'}}>
+                    <View style={{width: '50%', padding: 3}}>
+                        <Button
+                            icon="trending-up"
+                            mode="contained"
+                            onPress={() => this.viewValveTrend()}
+                        >
+                            View Trend
+                        </Button>
+                    </View>
+                    <View style={{width: '50%', padding: 3}}>
+                        <Button
+                            icon="trending-up"
+                            mode="contained"
+                            onPress={() => this.viewWrapTrend()}
+                        >
+                            View Trend
+                        </Button>
+                    </View>
+                </View>
+                <View style={{width: '100%', height: 'auto'}}>
+                    <Button icon="qrcode-scan" onPress={() => this.props.navigation.navigate('ScanScreen')}
+                            style={{width: '100%', borderRadius: 0}} mode="contained">QR Scan</Button>
+                </View>
             </View>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return state.client
-}
+    return state.client;
+};
 
-export default connect(mapStateToProps, {changeWrapDetail, changeValveDetail})(ClientScreen)
+export default connect(mapStateToProps, {
+    changeWrapDetail,
+    changeValveDetail,
+    changeWrapTrend,
+    changeValveTrend,
+})(ClientScreen);

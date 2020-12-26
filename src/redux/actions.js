@@ -1,4 +1,11 @@
-import {CHANGE_CLIENT_DATA, CHANGE_CLIENT_NAME, CHANGE_VALVE_DETAIL, CHANGE_WRAP_DETAIL} from './actionTypes';
+import {
+    CHANGE_CLIENT_DATA,
+    CHANGE_CLIENT_NAME,
+    CHANGE_VALVE_DETAIL,
+    CHANGE_VALVE_TREND,
+    CHANGE_WRAP_DETAIL,
+    CHANGE_WRAP_TREND,
+} from './actionTypes';
 
 export const changeClientData = clientData => ({
     type: CHANGE_CLIENT_DATA,
@@ -18,4 +25,14 @@ export const changeWrapDetail = wrap => ({
 export const changeValveDetail = valve => ({
     type: CHANGE_VALVE_DETAIL,
     payload: valve
+})
+
+export const changeWrapTrend = trendData => ({
+    type: CHANGE_WRAP_TREND,
+    payload: trendData
+})
+
+export const changeValveTrend = trendData => ({
+    type: CHANGE_VALVE_TREND,
+    payload: trendData
 })

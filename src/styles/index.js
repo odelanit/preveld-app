@@ -32,12 +32,29 @@ export const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 1
     },
-    tableWrapper: {flexDirection: 'row'},
-    tableTitle: {flex: 1, backgroundColor: '#f6f8fa'},
-    tableRow: {height: 28},
-    tableRow2: {height: 40},
-    tableRow3: {height: 50},
-    tableText: {textAlign: 'center'},
+    tableHead: {
+        height: 40,
+        backgroundColor: '#f1f8ff',
+    },
+    tableWrapper: {
+        flexDirection: 'row'
+    },
+    tableTitle: {
+        flex: 1,
+        backgroundColor: '#f6f8fa'
+    },
+    tableRow: {
+        height: 28
+    },
+    tableRow2: {
+        height: 40
+    },
+    tableRow3: {
+        height: 50
+    },
+    tableText: {
+        textAlign: 'center'
+    },
     table: {
         marginBottom: 10
     }
