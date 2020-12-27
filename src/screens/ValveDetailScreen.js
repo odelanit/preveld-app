@@ -187,10 +187,6 @@ class ValveDetailScreen extends React.Component {
                         <IconButton style={{flex: 1}} icon="skip-next" onPress={this.goNextRecord}/>
                     </View>
                 </View>
-                <View style={{width: '100%', height: 'auto'}}>
-                    <Button icon="qrcode-scan" onPress={() => this.props.navigation.navigate('ScanScreen')}
-                            style={{width: '100%', borderRadius: 0}} mode="contained">QR Scan</Button>
-                </View>
             </View>
         );
     }

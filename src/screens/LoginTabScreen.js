@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Tab = createBottomTabNavigator()
 
-class LoginNavigator extends React.Component {
+class LoginTabScreen extends React.Component {
     render() {
         return (
             <Tab.Navigator
@@ -36,4 +36,4 @@ class LoginNavigator extends React.Component {
     }
 }
 
-export default LoginNavigator
+export default LoginTabScreen

@@ -2,16 +2,16 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './HomeScreen';
 import HomeDrawerContent from '../components/HomeDrawerContent';
-import ClientScreen from './ClientScreen';
 import ScanScreen from './ScanScreen';
 import WrapDetailScreen from './WrapDetailScreen';
 import ValveDetailScreen from './ValveDetailScreen';
 import ValveTrendScreen from './ValveTrendScreen';
 import WrapTrendScreen from './WrapTrendScreen';
+import ClientTabScreen from './ClientTabScreen';
 
 const Drawer = createDrawerNavigator();
 
-class HomeNavigator extends React.Component {
+class HomeDrawerScreen extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -31,7 +31,7 @@ class HomeNavigator extends React.Component {
                 />
                 <Drawer.Screen
                     name="ClientScreen"
-                    component={ClientScreen}
+                    component={ClientTabScreen}
                     options={{
                         headerTitle: 'Client'
                     }}
@@ -43,37 +43,9 @@ class HomeNavigator extends React.Component {
                         headerTitle: 'QR Scan'
                     }}
                 />
-                <Drawer.Screen
-                    name="WrapDetailScreen"
-                    component={WrapDetailScreen}
-                    options={{
-                        headerTitle: 'Wrap Detail'
-                    }}
-                />
-                <Drawer.Screen
-                    name="ValveDetailScreen"
-                    component={ValveDetailScreen}
-                    options={{
-                        headerTitle: 'Valve Detail'
-                    }}
-                />
-                <Drawer.Screen
-                    name="ValveTrendScreen"
-                    component={ValveTrendScreen}
-                    options={{
-                        headerTitle: 'Valve Trend'
-                    }}
-                />
-                <Drawer.Screen
-                    name="WrapTrendScreen"
-                    component={WrapTrendScreen}
-                    options={{
-                        headerTitle: 'Wrap Trend'
-                    }}
-                />
             </Drawer.Navigator>
         );
     }
 }
 
-export default HomeNavigator;
+export default HomeDrawerScreen;

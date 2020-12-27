@@ -42,7 +42,7 @@ class WrapDetailScreen extends React.Component {
             tableData1: [
                 [wrap.Location],
                 [wrap.Client],
-                [wrap.Date_of_last_inspection],
+                [wrap.Date_of_last_Inspection],
                 [wrap.COR_No]
             ],
             height1: [
@@ -112,10 +112,6 @@ class WrapDetailScreen extends React.Component {
                         <Button mode="outlined" style={{alignSelf: 'center'}} onPress={this.goTrend}>View Trend</Button>
                         <IconButton style={{flex: 1}} icon="skip-next" onPress={this.goNextRecord} />
                     </View>
-                </View>
-                <View style={{width: '100%', height: 'auto'}}>
-                    <Button icon="qrcode-scan" onPress={() => this.props.navigation.navigate('ScanScreen')}
-                            style={{width: '100%', borderRadius: 0}} mode="contained">QR Scan</Button>
                 </View>
             </View>
         );

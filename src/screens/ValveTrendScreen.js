@@ -8,24 +8,24 @@ import {Row, Rows, Table, TableWrapper} from 'react-native-table-component';
 class ValveTrendScreen extends React.Component {
     constructor(props) {
         super(props);
-        const tableData = []
-
-        for(let i = 0; i < props.valveTrend.data.length; i++) {
-            const rowData = [
-                props.valveTrend.data[i].Date_of_Inspection,
-                props.valveTrend.data[i].Leak_Classification,
-                props.valveTrend.data[i].Leak_Rate_kgmin,
-            ];
-            tableData.push(rowData);
-        }
-
-        this.state = {
-            tableHead: ['Month/Year', 'Leak Classification', 'Leak Rate(kg/min)'],
-            tableData: tableData
-        }
     }
     render() {
-        const state = this.state
+        const rows = []
+
+        for(let i = 0; i < this.props.valveTrend.data.length; i++) {
+            const rowData = [
+                this.props.valveTrend.data[i].Date_of_Inspection,
+                this.props.valveTrend.data[i].Leak_Classification,
+                this.props.valveTrend.data[i].Leak_Rate_kgmin,
+            ];
+            rows.push(rowData);
+        }
+
+        const tableData = {
+            tableHead: ['Month/Year', 'Leak Classification', 'Leak Rate(kg/min)'],
+            tableData: rows
+        }
+
         return (
             <View style={[styles.container, {flexDirection: 'column'}]}>
                 <View style={{flex: 10, width: '100%'}}>
@@ -34,19 +34,15 @@ class ValveTrendScreen extends React.Component {
                             {this.props.client.clientName}
                         </Title>
                         <Table borderStyle={styles.tableBorder} style={{margin: 10}}>
-                            <Row data={state.tableHead} style={styles.tableHead} textStyle={styles.tableText} />
+                            <Row data={tableData.tableHead} style={styles.tableHead} textStyle={styles.tableText} />
                             <TableWrapper style={styles.tableWrapper}>
-                                <Rows data={state.tableData} flexArr={[1]} style={styles.tableRow} textStyle={styles.tableText} />
+                                <Rows data={tableData.tableData} flexArr={[1]} style={styles.tableRow} textStyle={styles.tableText} />
                             </TableWrapper>
                         </Table>
                     </ScrollView>
                 </View>
                 <View style={{flex: 1}}>
                     <Button mode="contained" onPress={() => this.props.navigation.goBack()}>Back</Button>
-                </View>
-                <View style={{width: '100%', height: 'auto'}}>
-                    <Button icon="qrcode-scan" onPress={() => this.props.navigation.navigate('ScanScreen')}
-                            style={{width: '100%', borderRadius: 0}} mode="contained">QR Scan</Button>
                 </View>
             </View>
         );

@@ -19,10 +19,10 @@ import {
 import Toast from 'react-native-toast-message';
 import merge from 'deepmerge'
 
-import LoginNavigator from './screens/LoginNavigator';
+import LoginTabScreen from './screens/LoginTabScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LinkSentScreen from './screens/LinkSentScreen';
-import HomeNavigator from './screens/HomeNavigator';
+import HomeDrawerScreen from './screens/HomeDrawerScreen';
 
 const Stack = createStackNavigator();
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme)
@@ -32,10 +32,10 @@ const App: () => React$Node = () => {
         <PaperProvider theme={CombinedDefaultTheme}>
             <NavigationContainer theme={CombinedDefaultTheme}>
                 <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="LoginNav" component={LoginNavigator} />
-                    <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
-                    <Stack.Screen name="LinkSent" component={LinkSentScreen} />
-                    <Stack.Screen name="HomeNav" component={HomeNavigator} />
+                    <Stack.Screen name="LoginTabScreen" component={LoginTabScreen} />
+                    <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+                    <Stack.Screen name="LinkSentScreen" component={LinkSentScreen} />
+                    <Stack.Screen name="HomeDrawerScreen" component={HomeDrawerScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
             <Toast ref={(ref) => Toast.setRef(ref)} />

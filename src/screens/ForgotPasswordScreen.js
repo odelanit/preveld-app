@@ -27,7 +27,7 @@ class ForgotPasswordScreen extends React.Component {
         sendPasswordResetLink(this.state.email)
             .then(data => {
                 if (data.data) {
-                    this.props.navigation.navigate('LinkSent')
+                    this.props.navigation.navigate('LinkSentScreen')
                 } else {
                     Toast.show({
                         type: 'error',

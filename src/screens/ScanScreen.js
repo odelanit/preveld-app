@@ -11,10 +11,11 @@ import {styles} from '../styles';
 class ScanScreen extends React.Component {
 
     onSuccess = (e) => {
-        Linking.openURL(e.data)
-            .catch(err => {
-                console.error(err);
-            });
+        console.log(e.data)
+        // Linking.openURL(e.data)
+        //     .catch(err => {
+        //         console.error(err);
+        //     });
     };
 
     render() {

@@ -25,7 +25,7 @@ class LoginScreen extends React.Component {
                 if (data) {
                     if (data.data) {
                         AsyncStorage.setItem('accessToken', data.data);
-                        this.props.navigation.navigate('HomeNav')
+                        this.props.navigation.navigate('HomeDrawerScreen')
                         this.setState({
                             username: '',
                             password: ''
@@ -95,7 +95,7 @@ class LoginScreen extends React.Component {
                     </Button>
                     <Pressable
                         style={styles.input}
-                        onPress={() => this.props.navigation.navigate('Forgot')}
+                        onPress={() => this.props.navigation.navigate('ForgotPasswordScreen')}
                     >
                         {({pressed}) => (
                             <Text style={{textAlign: 'right', color: pressed ? 'white' : 'black'}}>Forgot Password?</Text>

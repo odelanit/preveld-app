@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const baseURL = 'http://192.168.1.38/api'
+
 export const postLogin = (username, password) => {
-    return fetch('http://192.168.1.38:8080/api/Auth/Login', {
+    return fetch(`${baseURL}/Auth/Login`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -24,7 +26,7 @@ export const postLogin = (username, password) => {
 
 export const sendPasswordResetLink = async (email) => {
     try {
-        let response = await fetch('http://192.168.1.38:8080/api/Auth/ForgotPassword', {
+        let response = await fetch(`${baseURL}/Auth/ForgotPassword`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -44,7 +46,7 @@ export const sendPasswordResetLink = async (email) => {
 export const getClients = async () => {
     try {
         let accessToken = await AsyncStorage.getItem('accessToken');
-        let response = await fetch('http://192.168.1.38:8080/api/Home/Clients', {
+        let response = await fetch(`${baseURL}/Home/Clients`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -62,7 +64,7 @@ export const getClients = async () => {
 export const getClientRecords = async (name) => {
     try {
         let accessToken = await AsyncStorage.getItem('accessToken');
-        let response = await fetch(`http://192.168.1.38:8080/api/Client/${name}`, {
+        let response = await fetch(`${baseURL}/Client/${name}`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -79,7 +81,7 @@ export const getClientRecords = async (name) => {
 
 export const getWrapTrend = async (name) => {
     let accessToken = await AsyncStorage.getItem('accessToken');
-    return fetch(`http://192.168.1.38:8080/api/Wrap/Trend/${name}`, {
+    return fetch(`${baseURL}/Wrap/Trend/${name}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -99,7 +101,7 @@ export const getWrapTrend = async (name) => {
 
 export const getValveTrend = async (name) => {
     let accessToken = await AsyncStorage.getItem('accessToken');
-    return fetch(`http://192.168.1.38:8080/api/Valve/Trend/${name}`, {
+    return fetch(`${baseURL}/Valve/Trend/${name}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

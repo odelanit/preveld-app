@@ -57,5 +57,8 @@ export const styles = StyleSheet.create({
     },
     table: {
         marginBottom: 10
+    },
+    scene: {
+        flex: 1
     }
 });
