@@ -8,6 +8,7 @@ import {View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {connect} from 'react-redux';
 
 import {styles} from '../styles';
@@ -69,6 +70,15 @@ class HomeDrawerContent extends React.Component {
                     }}
                     icon={({focused, size, color}) => (
                         <Ionicons name="md-home" size={size} color={color}/>
+                    )}
+                />
+                <DrawerItem
+                    label="Latest Report"
+                    onPress={() => {
+                        this.props.navigation.navigate('LatestTabScreen')
+                    }}
+                    icon={({focused, size, color}) => (
+                        <MaterialCommunityIcons name="update" size={size} color={color}/>
                     )}
                 />
                 <Drawer.Section title="View Clients">

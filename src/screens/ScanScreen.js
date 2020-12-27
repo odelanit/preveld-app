@@ -1,21 +1,27 @@
 import React from 'react';
-import {
-    View, Linking, Text,
-    TouchableOpacity,
-} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
+import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {styles} from '../styles';
+import {setValveId, setWrapId} from '../redux/actions';
 
 class ScanScreen extends React.Component {
 
-    onSuccess = (e) => {
-        console.log(e.data)
-        // Linking.openURL(e.data)
-        //     .catch(err => {
-        //         console.error(err);
-        //     });
+    onSuccess = async (e) => {
+        let latestObj = JSON.parse(e.data)
+        let valveId = latestObj.valve
+        let wrapId = latestObj.wrap
+        this.props.setValveId(valveId)
+        this.props.setWrapId(wrapId)
+        const accessToken = await AsyncStorage.getItem('accessToken')
+        if (accessToken) {
+            this.props.navigation.navigate("HomeDrawerScreen", {
+                screen: 'LatestTabScreen'
+            })
+        } else {
+            this.props.navigation.navigate("HomeLogin")
+        }
     };
 
     render() {
@@ -29,4 +35,4 @@ class ScanScreen extends React.Component {
     }
 }
 
-export default ScanScreen;
+export default connect(null, {setWrapId, setValveId})(ScanScreen);

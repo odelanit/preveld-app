@@ -5,6 +5,8 @@ import {
     CHANGE_VALVE_TREND,
     CHANGE_WRAP_DETAIL,
     CHANGE_WRAP_TREND,
+    SET_VALVE_ID,
+    SET_WRAP_ID,
 } from './actionTypes';
 
 export const changeClientData = clientData => ({
@@ -41,4 +43,14 @@ export const changeWrapTrend = trendData => ({
 export const changeValveTrend = trendData => ({
     type: CHANGE_VALVE_TREND,
     payload: trendData
+})
+
+export const setValveId = valveId => ({
+    type: SET_VALVE_ID,
+    payload: valveId
+})
+
+export const setWrapId = wrapId => ({
+    type: SET_WRAP_ID,
+    payload: wrapId
 })

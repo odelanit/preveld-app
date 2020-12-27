@@ -3,11 +3,8 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './HomeScreen';
 import HomeDrawerContent from '../components/HomeDrawerContent';
 import ScanScreen from './ScanScreen';
-import WrapDetailScreen from './WrapDetailScreen';
-import ValveDetailScreen from './ValveDetailScreen';
-import ValveTrendScreen from './ValveTrendScreen';
-import WrapTrendScreen from './WrapTrendScreen';
 import ClientTabScreen from './ClientTabScreen';
+import LatestTabScreen from './LatestTabScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +24,13 @@ class HomeDrawerScreen extends React.Component {
                     component={HomeScreen}
                     options={{
                         headerTitle: 'Welcome to Preveld App'
+                    }}
+                />
+                <Drawer.Screen
+                    name="LatestTabScreen"
+                    component={LatestTabScreen}
+                    options={{
+                        headerTitle: 'Latest Report'
                     }}
                 />
                 <Drawer.Screen

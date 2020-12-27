@@ -16,6 +16,15 @@ class LoginScreen extends React.Component {
         }
     }
 
+    componentDidMount() {
+        AsyncStorage.getItem('accessToken')
+            .then(accessToken => {
+                if (accessToken) {
+                    this.props.navigation.navigate('HomeDrawerScreen')
+                }
+            })
+    }
+
     handleLogin = () => {
         this.setState({
             isLoading: true

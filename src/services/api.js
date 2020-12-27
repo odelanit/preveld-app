@@ -118,3 +118,43 @@ export const getValveTrend = async (name) => {
         })
         .catch(error => console.log(error))
 }
+
+export const getValve = async (valveId) => {
+    let accessToken = await AsyncStorage.getItem('accessToken');
+    return fetch(`${baseURL}/Valve/Get/${valveId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw Error(res.statusText)
+            }
+        })
+        .catch(error => console.log(error))
+}
+
+export const getWrap = async (wrapId) => {
+    let accessToken = await AsyncStorage.getItem('accessToken');
+    return fetch(`${baseURL}/Wrap/Get/${wrapId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw Error(res.statusText)
+            }
+        })
+        .catch(error => console.log(error))
+}
