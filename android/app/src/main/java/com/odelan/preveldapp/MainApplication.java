@@ -1,4 +1,4 @@
-package com.preveldproject;
+package com.odelan.preveldapp;
 
 import android.app.Application;
 import android.content.Context;

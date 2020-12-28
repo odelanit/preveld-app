@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'PreveldProject' do
+target 'PreveldApp' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -16,7 +16,7 @@ target 'PreveldProject' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
-  target 'PreveldProjectTests' do
+  target 'PreveldAppTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -31,10 +31,10 @@ target 'PreveldProject' do
   end
 end
 
-target 'PreveldProject-tvOS' do
-  # Pods for PreveldProject-tvOS
+target 'PreveldApp-tvOS' do
+  # Pods for PreveldApp-tvOS
 
-  target 'PreveldProject-tvOSTests' do
+  target 'PreveldApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

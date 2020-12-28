@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, View} from 'react-native';
-import {Button, IconButton, Text, Title} from 'react-native-paper';
+import {Text, Title} from 'react-native-paper';
 import {styles} from '../styles';
 import {connect} from 'react-redux';
 import {getWrap} from '../services/api';
