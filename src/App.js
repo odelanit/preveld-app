@@ -14,31 +14,44 @@ import {
 } from '@react-navigation/native';
 import {
     Provider as PaperProvider,
-    DefaultTheme as PaperDefaultTheme
-} from 'react-native-paper'
+    DefaultTheme as PaperDefaultTheme,
+} from 'react-native-paper';
 import Toast from 'react-native-toast-message';
-import merge from 'deepmerge'
+import SQLite from 'react-native-sqlite-storage';
+import merge from 'deepmerge';
 
 import LoginTabScreen from './screens/LoginTabScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LinkSentScreen from './screens/LinkSentScreen';
 import HomeDrawerScreen from './screens/HomeDrawerScreen';
 
+global.db = SQLite.openDatabase(
+    {
+        name: 'main',
+        location: 'default',
+        createFromLocation: '~main.sqlite',
+    }, obj => {
+        console.log('Database Opened: ' + obj.dbname)
+    }, error => {
+        console.error('Error: ' + error);
+    },
+);
+
 const Stack = createStackNavigator();
-const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme)
+const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 
 const App: () => React$Node = () => {
     return (
         <PaperProvider theme={CombinedDefaultTheme}>
             <NavigationContainer theme={CombinedDefaultTheme}>
                 <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="LoginTabScreen" component={LoginTabScreen} />
-                    <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
-                    <Stack.Screen name="LinkSentScreen" component={LinkSentScreen} />
-                    <Stack.Screen name="HomeDrawerScreen" component={HomeDrawerScreen} />
+                    <Stack.Screen name="LoginTabScreen" component={LoginTabScreen}/>
+                    <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen}/>
+                    <Stack.Screen name="LinkSentScreen" component={LinkSentScreen}/>
+                    <Stack.Screen name="HomeDrawerScreen" component={HomeDrawerScreen}/>
                 </Stack.Navigator>
             </NavigationContainer>
-            <Toast ref={(ref) => Toast.setRef(ref)} />
+            <Toast ref={(ref) => Toast.setRef(ref)}/>
         </PaperProvider>
     );
 };

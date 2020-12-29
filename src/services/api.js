@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://www.envisio.com.my/api'
+const baseURL = 'http://www.login.envisio.com.my/api'
 
 export const postLogin = (username, password) => {
     return fetch(`${baseURL}/Auth/Login`, {

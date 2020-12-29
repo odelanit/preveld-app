@@ -16,6 +16,8 @@ target 'PreveldApp' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+  pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
+
   target 'PreveldAppTests' do
     inherit! :complete
     # Pods for testing
