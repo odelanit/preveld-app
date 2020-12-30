@@ -57,6 +57,7 @@ class LatestValveScreen extends React.Component {
             const valve = this.state.valve
             const tableData = {
                 tableTitle1: [
+                    'Valve tag',
                     'Description',
                     'Location',
                     'Client',
@@ -71,6 +72,7 @@ class LatestValveScreen extends React.Component {
                     28,
                 ],
                 tableData1: [
+                    [valve.Valve_tag],
                     [valve.Valve_description],
                     [valve.Location],
                     [valve.Client],
@@ -84,7 +86,7 @@ class LatestValveScreen extends React.Component {
                 ],
                 tableData2: [
                     [valve.Size_Inch],
-                    [valve.Location],
+                    [valve.Function],
                     [valve.Pressure_UP],
                 ],
                 tableTitle3: [

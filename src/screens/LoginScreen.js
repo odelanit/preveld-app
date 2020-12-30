@@ -75,7 +75,7 @@ class LoginScreen extends React.Component {
                         <Image source={require('../assets/logo.png')} />
                     </View>
                     <Title style={styles.title}>
-                        Welcome to IDE@S
+                        Welcome to Envisio
                     </Title>
                     <Subheading style={styles.subtitle}>
                         Inspection Database and Equipment Information System

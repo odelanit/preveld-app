@@ -34,12 +34,14 @@ class WrapDetailScreen extends React.Component {
 
         const tableData = {
             tableTitle1: [
+                'Wrap No.',
                 'Location',
                 'Client',
                 'Date of Last Inspection',
                 'COR No.'
             ],
             tableData1: [
+                [wrap.Wrap_No],
                 [wrap.Location],
                 [wrap.Client],
                 [wrap.Date_of_last_Inspection],

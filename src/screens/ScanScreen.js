@@ -50,6 +50,7 @@ class ScanScreen extends React.Component {
             <QRCodeScanner
                 onRead={this.onSuccess}
                 showMarker={true}
+                reactivate={true}
             />
         );
     }
