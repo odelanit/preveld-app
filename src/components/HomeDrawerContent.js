@@ -73,12 +73,12 @@ class HomeDrawerContent extends React.Component {
                     )}
                 />
                 <DrawerItem
-                    label="Latest Report"
+                    label="Scanned Report"
                     onPress={() => {
                         this.props.navigation.navigate('LatestTabScreen')
                     }}
                     icon={({focused, size, color}) => (
-                        <MaterialCommunityIcons name="update" size={size} color={color}/>
+                        <MaterialCommunityIcons name="qrcode-scan" size={size} color={color}/>
                     )}
                 />
                 <Drawer.Section title="View Clients">

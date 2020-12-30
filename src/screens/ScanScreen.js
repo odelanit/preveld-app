@@ -12,13 +12,34 @@ class ScanScreen extends React.Component {
         let latestObj = JSON.parse(e.data)
         let valveId = latestObj.valve
         let wrapId = latestObj.wrap
-        this.props.setValveId(valveId)
-        this.props.setWrapId(wrapId)
+        // console.log(valveId)
+        // console.log(wrapId)
+        if (valveId) {
+            this.props.setValveId(valveId)
+        }
+        if (wrapId) {
+            this.props.setWrapId(wrapId)
+        }
+
         const accessToken = await AsyncStorage.getItem('accessToken')
         if (accessToken) {
-            this.props.navigation.navigate("HomeDrawerScreen", {
-                screen: 'LatestTabScreen'
-            })
+            if (valveId) {
+                this.props.navigation.navigate("HomeDrawerScreen", {
+                    screen: 'LatestTabScreen',
+                    params: {
+                        screen: 'LatestValve'
+                    }
+                })
+            } else {
+                if (wrapId) {
+                    this.props.navigation.navigate("HomeDrawerScreen", {
+                        screen: 'LatestTabScreen',
+                        params: {
+                            screen: 'LatestWrap'
+                        }
+                    })
+                }
+            }
         } else {
             this.props.navigation.navigate("HomeLogin")
         }

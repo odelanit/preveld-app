@@ -30,7 +30,7 @@ class HomeDrawerScreen extends React.Component {
                     name="LatestTabScreen"
                     component={LatestTabScreen}
                     options={{
-                        headerTitle: 'Latest Report'
+                        headerTitle: 'Scanned Report'
                     }}
                 />
                 <Drawer.Screen
