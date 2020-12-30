@@ -47,8 +47,12 @@ class HomeDrawerContent extends React.Component {
                     this.props.changeClientData(res.data);
                 }
             });
-        this.props.navigation.navigate('WrapListScreen');
-        this.props.navigation.navigate('ValveListScreen');
+        this.props.navigation.navigate('ClientScreen', {
+            screen: 'WrapListScreen'
+        });
+        this.props.navigation.navigate('ClientScreen', {
+            screen: 'ValveListScreen'
+        });
     };
 
     onHomeClicked = () => {
